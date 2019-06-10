@@ -1,10 +1,11 @@
 // ==UserScript==
-// @name Randaris Link holer
+// @name Randaris-Link-Grabber
 // @description Link Grabber for Randaris.
 // @version 1.1
 // @author Bandaras
 // @license MIT
-// @namespace https://github.com/Bandaras213/Randaris-Link-Grabber
+// @homepageURL https://github.com/Bandaras213/Randaris-Link-Grabber
+// @updateURL https://openuserjs.org/meta/Bandaras/Randaris-Link-Grabber.meta.js
 // @include https://randaris.app/serie/episode/*
 // @icon https://randaris.app/img/favicon.ico
 // @require http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
