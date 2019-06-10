@@ -2,7 +2,7 @@
 // @name         Randaris Link holer
 // @description  Nanoids Link Grabber.
 // @icon         https://randaris.app/img/favicon.ico
-// @version      1.0
+// @version      1.1
 // @author       Banda
 // @include      https://randaris.app/serie/episode/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
@@ -13,12 +13,17 @@
 // ==/UserScript==
 
 let linklist = [];
+let infolist = [];
 let teststring;
 let testcheck = false;
 let link;
 let links = GM_getValue("links", "");
 if (links.length != 0) {
   addoldlink();
+}
+let info = GM_getValue("info", "");
+if (info.length != 0) {
+  addoldinfo();
 }
 
 window.onload = function() {
@@ -50,6 +55,8 @@ window.onload = function() {
 };
 
 function getlinks() {
+  let epinumber = document.getElementsByClassName("content-header content-header-episode clearfix")[0].getElementsByTagName("h1")[0].innerText;
+  let epiname = document.getElementsByClassName("content-header content-header-episode clearfix")[0].getElementsByTagName("a")[0].innerText;
   let videomirror = document.getElementsByClassName("mirror-card text-center small active")[0].children[0].getElementsByTagName("b")[0].innerText;
   switch (videomirror) {
     case "Nanoids":
@@ -66,12 +73,16 @@ function getlinks() {
         }
       } else {
         linklist.push(link + ",");
+        infolist.push(epiname + " " + epinumber + ",");
         savelink();
+        savename();
         break;
       }
       if (testcheck == false) {
         linklist.push(link + ",");
+        infolist.push(epiname + " " + epinumber + ",");
         savelink();
+        savename();
         break;
       }
       break;
@@ -89,12 +100,16 @@ function getlinks() {
         }
       } else {
         linklist.push(link + ",");
+        infolist.push(epiname + " " + epinumber + ",");
         savelink();
+        savename();
         break;
       }
       if (testcheck == false) {
         linklist.push(link + ",");
+        infolist.push(epiname + " " + epinumber + ",");
         savelink();
+        savename();
         break;
       }
       break;
@@ -112,15 +127,46 @@ function getlinks() {
         }
       } else {
         linklist.push(link + ",");
+        infolist.push(epiname + " " + epinumber + ",");
         savelink();
+        savename();
         break;
       }
       if (testcheck == false) {
         linklist.push(link + ",");
+        infolist.push(epiname + " " + epinumber + ",");
         savelink();
+        savename();
         break;
       }
       break;
+      case "OpenLoad":
+        link = document.getElementsByClassName("video-player")[0].getElementsByTagName("iframe")[0].src;
+        if (linklist.length >= 1) {
+          let linksort = linklist.toString();
+          teststring = linksort.split(",").filter(links => links);
+          for (var iii = 0; iii < teststring.length; iii++) {
+            if (teststring[iii] == link + "," || teststring[iii] == link) {
+              testcheck = true;
+              alert("Der Download Link befindet sich schon in der Liste.");
+              break;
+            }
+          }
+        } else {
+          linklist.push(link + ",");
+          infolist.push(epiname + " " + epinumber + ",");
+          savelink();
+          savename();
+          break;
+        }
+        if (testcheck == false) {
+          linklist.push(link + ",");
+          infolist.push(epiname + " " + epinumber + ",");
+          savelink();
+          savename();
+          break;
+        }
+        break;
     default:
       alert("Sieht so aus als ob du " + videomirror + " ausgewählt hast. \n\nBitte wähle einen zulässigen Hoster.");
       break;
@@ -132,16 +178,28 @@ function savelink() {
   GM_setValue("links", linksort);
 }
 
+function savename() {
+  let infosort = infolist.toString();
+  GM_setValue("info", infosort);
+}
+
 function addoldlink() {
   var oldstring = links.split(",").filter(links => links);
   linklist.push(oldstring + ",");
+}
+
+function addoldinfo() {
+  var oldinfo = info.split(",").filter(info => info);
+  infolist.push(oldinfo + ",");
 }
 
 function removelinks() {
   let deletecheck = confirm("Drücke Ok zum Löschen der Link Liste.");
   if (deletecheck == true) {
     GM_deleteValue("links");
+    GM_deleteValue("info");
     linklist = [];
+    infolist = [];
     alert("Deine Linkliste wurde gelöscht.");
   } else {
     alert("Deine Linkliste wurde nicht gelöscht.");
@@ -150,12 +208,27 @@ function removelinks() {
 
 function showlinks() {
   let linksort = linklist.toString();
-  var oldstring = linksort
-    .split(",")
-    .filter(links => links)
-    .join("\n");
-  var w = window.open("", "", "width=600,height=800,scrollbars");
-  w.document.write(oldstring);
+  var oldstring = linksort.split(",").filter(links => links);
+  let infosort = infolist.toString();
+  let infofixer = infosort.replace(/ Nanoids/g, '').replace(/ Ani-Stream/g, '').replace(/ MP4Upload/g, '').replace(/ OpenLoad/g, '');
+  var oldinfo = infofixer.split(",").filter(info => info);
+  var w = window.open("", "", "width=700,height=800,scrollbars");
+  var str1 = "<ul>";
+  var str2 = "<ul>";
+
+  oldstring.forEach(function(oldstring) {
+    str1 += "<li>" + oldstring + "</li>";
+  });
+
+  oldinfo.forEach(function(oldinfo) {
+    str2 += "<li>" + oldinfo + "</li>";
+  });
+
+  str1 += "</ul>";
+  str2 += "</ul>";
+  let list1 = w.document.innerHTML = str1;
+  let list2 = w.document.innerHTML = str2;
+  w.document.write(list1 + list2);
   w.document.close();
 }
 
