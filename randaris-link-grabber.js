@@ -21,11 +21,11 @@ let teststring;
 let testcheck = false;
 let link;
 let links = GM_getValue("links", "");
-if (links.length != 0) {
+if (links.length !== 0) {
   addoldlink();
 }
 let info = GM_getValue("info", "");
-if (info.length != 0) {
+if (info.length !== 0) {
   addoldinfo();
 }
 
@@ -81,7 +81,7 @@ function getlinks() {
         savename();
         break;
       }
-      if (testcheck == false) {
+      if (testcheck === false) {
         linklist.push(link + ",");
         infolist.push(epiname + " " + epinumber + ",");
         savelink();
@@ -108,7 +108,7 @@ function getlinks() {
         savename();
         break;
       }
-      if (testcheck == false) {
+      if (testcheck === false) {
         linklist.push(link + ",");
         infolist.push(epiname + " " + epinumber + ",");
         savelink();
@@ -135,7 +135,7 @@ function getlinks() {
         savename();
         break;
       }
-      if (testcheck == false) {
+      if (testcheck === false) {
         linklist.push(link + ",");
         infolist.push(epiname + " " + epinumber + ",");
         savelink();
@@ -162,7 +162,7 @@ function getlinks() {
           savename();
           break;
         }
-        if (testcheck == false) {
+        if (testcheck === false) {
           linklist.push(link + ",");
           infolist.push(epiname + " " + epinumber + ",");
           savelink();
