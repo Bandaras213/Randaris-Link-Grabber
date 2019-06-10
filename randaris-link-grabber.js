@@ -4,6 +4,7 @@
 // @version 1.1
 // @author Bandaras
 // @license MIT
+// @namespace https://github.com/Bandaras213/Randaris-Link-Grabber
 // @include https://randaris.app/serie/episode/*
 // @icon https://randaris.app/img/favicon.ico
 // @require http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
