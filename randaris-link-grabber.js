@@ -1,16 +1,16 @@
-// ==UserScript==
+// ==OpenUserJS==
 // @name         Randaris Link holer
 // @description  Nanoids Link Grabber.
 // @icon         https://randaris.app/img/favicon.ico
 // @version      1.1
-// @author       Banda
+// @author       Bandaras
 // @include      https://randaris.app/serie/episode/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @grant        GM_addStyle
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_deleteValue
-// ==/UserScript==
+// ==/OpenUserJS==
 
 let linklist = [];
 let infolist = [];
